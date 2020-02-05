@@ -7,6 +7,15 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 
 	// initialise game objects
 
+	
+	
+	//text
+	if (!font.loadFromFile("font/arial.ttf"))
+	{
+		std::cout << "Error loading font\n";
+	}
+	words.setFont(font);
+	words.setCharacterSize(24);
 }
 
 Level::~Level()
@@ -39,6 +48,12 @@ void Level::handleInput()
 		input->setKeyUp(sf::Keyboard::Escape);
 		window->close();
 	}
+
+	//mouse inputs
+	int x = input->getMouseX();
+	int y = input->getMouseY();
+	std::string coordinates = std::to_string(x) + ", " + std::to_string(y);
+	words.setString(coordinates);
 }
 
 // Update game objects
@@ -51,6 +66,8 @@ void Level::update()
 void Level::render()
 {
 	beginDraw();
+
+	window->draw(words);
 
 	endDraw();
 }
